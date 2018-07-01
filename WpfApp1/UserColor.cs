@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mvvm
+﻿namespace Mvvm
 {
 	internal sealed class UserColor
 	{
-		private readonly byte alfa;
-		private readonly byte red;
-		private readonly byte green;
-		private readonly byte blue;
+		private readonly double alfa;
+		private readonly double blue;
+		private readonly double green;
+		private readonly double red;
 
-		public UserColor(byte alfa, byte red, byte green, byte blue)
+		public UserColor(byte alfa, byte blue, byte green, byte red)
 		{
 			this.alfa = alfa;
-			this.red = red;
-			this.green = green;
 			this.blue = blue;
+			this.green = green;
+			this.red = red;
 		}
 
-		public byte Alfa=>alfa;
+		public double Alfa=>alfa;
 
-		public byte Red => red;
+		public double Blue => blue;
 
-		public byte Green => green;
+		public double Green => green;
 
-		public byte Blue => blue;
+		public double Red => red;
 	}
 }
