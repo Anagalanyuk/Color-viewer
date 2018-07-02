@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp1;
 
 namespace Mvvm
 {
@@ -14,6 +9,10 @@ namespace Mvvm
 		private double blue;
 		private string color = string.Empty;
 		private double green;
+		private bool onAlfa = true;
+		private bool onBlue = true;
+		private bool onGreen = true;
+		private bool onRed = true;
 		private double red;
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -57,6 +56,46 @@ namespace Mvvm
 				green = value;
 				ChangeColor();
 				PropertyChanged(this, new PropertyChangedEventArgs(nameof(Green)));
+			}
+		}
+
+		public bool StateAlfa
+		{
+			get => onAlfa;
+			set
+			{
+				onAlfa = value;
+				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateAlfa)));
+			}
+		}
+
+		public bool StateBlue
+		{
+			get => onBlue;
+			set
+			{
+				onBlue = value;
+				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateBlue)));
+			}
+		}
+
+		public bool StateGreen
+		{
+			get => onGreen;
+			set
+			{
+				onGreen = value;
+				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateGreen)));
+			}
+		}
+
+		public bool StateRed
+		{
+			get => onRed;
+			set
+			{
+				onRed = value;
+				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateRed)));
 			}
 		}
 
