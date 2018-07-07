@@ -1,25 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
+using WpfApp1;
 
-namespace Mvvm
+namespace ColorViewer
 {
-	internal class viewModel : INotifyPropertyChanged
+	internal class ViewModel : INotifyPropertyChanged
 	{
+		private readonly ICollection<UserColor> colors = new ObservableCollection<UserColor>();
+		private readonly ICommand addCommand;
+
 		private double alfa;
 		private double blue;
 		private string color = string.Empty;
 		private double green;
+		private bool isAdd = true;
 		private bool onAlfa = true;
 		private bool onBlue = true;
 		private bool onGreen = true;
 		private bool onRed = true;
 		private double red;
 
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public viewModel()
+		public ViewModel()
 		{
+			addCommand = new DelegateCommand(Add, canAdd);
 		}
+
+		public ICommand AddCommand => addCommand;
+
+		public void Add()
+		{
+			colors.Add(new UserColor(color));
+		}
+
+		public bool canAdd()
+		{
+			foreach(UserColor userColor in colors)
+			{
+				if(color == userColor.Color)
+				{
+					isAdd = false;
+					break;
+				}
+				else
+				{
+					isAdd = true;
+				}
+			}
+			return isAdd;
+		}
+
+		public IEnumerable<UserColor> Colors => colors;
 
 		public double Alfa
 		{
@@ -28,7 +64,7 @@ namespace Mvvm
 			{
 				alfa = value;
 				ChangeColor();
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(Alfa)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(Alfa)));
 			}
 		}
 
@@ -39,13 +75,17 @@ namespace Mvvm
 			{
 				blue = value;
 				ChangeColor();
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(Blue)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(Blue)));
 			}
 		}
 
 		public string Color
 		{
 			get => color;
+			set
+			{
+				color = ChangeColor();
+			}
 		}
 
 		public double Green
@@ -55,7 +95,7 @@ namespace Mvvm
 			{
 				green = value;
 				ChangeColor();
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(Green)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(Green)));
 			}
 		}
 
@@ -65,7 +105,7 @@ namespace Mvvm
 			set
 			{
 				onAlfa = value;
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateAlfa)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateAlfa)));
 			}
 		}
 
@@ -75,7 +115,7 @@ namespace Mvvm
 			set
 			{
 				onBlue = value;
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateBlue)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateBlue)));
 			}
 		}
 
@@ -85,7 +125,7 @@ namespace Mvvm
 			set
 			{
 				onGreen = value;
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateGreen)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateGreen)));
 			}
 		}
 
@@ -95,7 +135,7 @@ namespace Mvvm
 			set
 			{
 				onRed = value;
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(StateRed)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateRed)));
 			}
 		}
 
@@ -106,14 +146,14 @@ namespace Mvvm
 			{
 				red = value;
 				ChangeColor();
-				PropertyChanged(this, new PropertyChangedEventArgs(nameof(red)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(Red)));
 			}
 		}
 
-		public void ChangeColor()
+		public string ChangeColor()
 		{
 			color = "#";
-			if(alfa < 16)
+			if (alfa < 16)
 			{
 				color += "0";
 				color += Convert.ToString((int)alfa, 16);
@@ -132,7 +172,7 @@ namespace Mvvm
 			{
 				color += Convert.ToString((int)red, 16);
 			}
-			if(green < 16)
+			if (green < 16)
 			{
 				color += "0";
 				color += Convert.ToString((int)green, 16);
@@ -141,7 +181,7 @@ namespace Mvvm
 			{
 				color += Convert.ToString((int)green, 16);
 			}
-			if(blue < 16)
+			if (blue < 16)
 			{
 				color += "0";
 				color += Convert.ToString((int)blue, 16);
@@ -151,6 +191,12 @@ namespace Mvvm
 				color += Convert.ToString((int)blue, 16);
 			}
 			PropertyChanged(this, new PropertyChangedEventArgs(nameof(Color)));
+			return color = color.ToUpper();
+		}
+
+		public void OnPropertyChange(PropertyChangedEventArgs e)
+		{
+			PropertyChanged?.Invoke(this, e);
 		}
 	}
 }

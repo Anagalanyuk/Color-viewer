@@ -1,26 +1,14 @@
-﻿namespace Mvvm
+﻿namespace ColorViewer
 {
 	internal sealed class UserColor
 	{
-		private readonly double alfa;
-		private readonly double blue;
-		private readonly double green;
-		private readonly double red;
+		private string userColor = string.Empty;
 
-		public UserColor(byte alfa, byte blue, byte green, byte red)
+		public UserColor(string color)
 		{
-			this.alfa = alfa;
-			this.blue = blue;
-			this.green = green;
-			this.red = red;
+			userColor = color;
 		}
 
-		public double Alfa=>alfa;
-
-		public double Blue => blue;
-
-		public double Green => green;
-
-		public double Red => red;
+		public string Color => userColor; 
 	}
 }

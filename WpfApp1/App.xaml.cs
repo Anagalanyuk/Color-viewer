@@ -1,21 +1,21 @@
 ﻿using System.Windows;
 
-namespace Mvvm
+namespace ColorViewer
 {
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	internal  partial class App : Application
-    {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+	internal partial class App : Application
+	{
+		protected override void OnStartup(StartupEventArgs e)
+		{
+			base.OnStartup(e);
 
-            viewModel viewModel = new viewModel();
+			ViewModel viewModel = new ViewModel();
 
-            var mainWindow = new MainWindow(viewModel);
+			var mainWindow = new MainWindow(viewModel);
 
-            mainWindow.Show();
-        }
-    }
+			mainWindow.Show();
+		}
+	}
 }
