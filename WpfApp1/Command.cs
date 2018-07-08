@@ -1,23 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace WpfApp1
 {
-	internal sealed class DelegateCommand : ICommand
+	internal sealed class Command : ICommand
 	{
 		public event EventHandler CanExecuteChanged;
 
 		private Func<bool> canExecuteMethod;
 		private Action add;
+		private ICommand deleteCommand;
+		private Func<bool> canAdd;
 
-		public DelegateCommand(Action add, Func<bool> canExecuteMethod)
+		public Command(Action add) :
+			this(add, () => true)
+		{
+		}
+
+		public Command(Action add, Func<bool> canExecuteMethod)
 		{
 			this.add = add;
 			this.canExecuteMethod = canExecuteMethod;
+		}
+
+		public Command(ICommand deleteCommand, Func<bool> canAdd)
+		{
+			this.deleteCommand = deleteCommand;
+			this.canAdd = canAdd;
 		}
 
 		public bool CanExecute()
