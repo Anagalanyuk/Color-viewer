@@ -52,13 +52,16 @@ namespace ColorViewer
 
 		public void Add()
 		{
-				colors.Add(new UserColor(color, colors));
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(OnButtonAdd)));
+			colors.Add(new UserColor(color, colors, addCommand));
+			addCommand.RaiseCanExecute();
 		}
 
 		public bool canAdd()
 		{
-
+			if (colors.Count == 0)
+			{
+				isAdd = true;
+			}
 			foreach (UserColor userColor in colors)
 			{
 				if (color == userColor.Color)

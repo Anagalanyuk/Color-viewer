@@ -5,15 +5,17 @@ namespace ColorViewer
 {
 	internal sealed class UserColor
 	{
+		private Command addCommand;
 		private string userColor = string.Empty;
-		private ICommand deleteComand;
+		private Command deleteComand;
 		private ICollection<UserColor> colors;
 
 		public ICommand DeleteCommand => deleteComand;
 		public string Color => userColor;
 
-		public UserColor(string color, ICollection<UserColor> colors)
+		public UserColor(string color, ICollection<UserColor> colors, Command addCommand)
 		{
+			this.addCommand = addCommand; 
 			userColor = color;
 			deleteComand = new Command(Delete);
 			this.colors = colors;
@@ -22,6 +24,7 @@ namespace ColorViewer
 		public void Delete()
 		{
 			colors.Remove(this);
+			addCommand.RaiseCanExecute();
 		}
 
 	}
