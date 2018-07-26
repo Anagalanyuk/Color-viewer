@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
-using WpfApp1;
 
 namespace ColorViewer
 {
 	internal class ViewModel : INotifyPropertyChanged
 	{
 		private readonly ICollection<UserColor> colors = new ObservableCollection<UserColor>();
-		private readonly ICommand addCommand;
-		private readonly ICommand deleteCommand;
+		private readonly Command addCommand;
 
-		private double alfa;
+		private double alfa = 255;
 		private double blue;
-		private string color = string.Empty;
+		private string color = "#FE000000";
 		private double green;
 		private bool isAdd = true;
 		private bool onAlfa = true;
@@ -25,57 +22,43 @@ namespace ColorViewer
 		private bool onRed = true;
 		private double red;
 
-
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public ViewModel()
 		{
 			addCommand = new Command(Add, canAdd);
-			deleteCommand = new Command(DeleteColor);
 		}
 
 		public ICommand AddCommand => addCommand;
 
 		public IEnumerable<UserColor> Colors => colors;
 
-		public ICommand Delete => deleteCommand;
-
-		public bool OnAdd
+		public bool OnButtonAdd
 		{
 			get
 			{
-				foreach (UserColor indexColor in colors)
+				isAdd = true;
+				foreach (UserColor indexColors in colors)
 				{
-					if (color.Equals(indexColor.Color))
+					if (color.Equals(indexColors.Color))
 					{
 						isAdd = false;
 						break;
-					}
-					else
-					{
-						isAdd = true;
 					}
 				}
 				return isAdd;
 			}
 		}
 
-		public void DeleteColor()
-		{
-			MessageBox.Show("Delete");
-		}
-
 		public void Add()
 		{
-			if (alfa >= 10)
-			{
-				colors.Add(new UserColor(color));
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(OnAdd)));
-			}
+				colors.Add(new UserColor(color, colors));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(OnButtonAdd)));
 		}
 
 		public bool canAdd()
 		{
+
 			foreach (UserColor userColor in colors)
 			{
 				if (color == userColor.Color)
@@ -98,8 +81,8 @@ namespace ColorViewer
 			{
 				alfa = value;
 				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(OnAdd)));
 				OnPropertyChange(new PropertyChangedEventArgs(nameof(Alfa)));
+				addCommand.RaiseCanExecute();
 			}
 		}
 
@@ -110,8 +93,8 @@ namespace ColorViewer
 			{
 				blue = value;
 				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(OnAdd)));
 				OnPropertyChange(new PropertyChangedEventArgs(nameof(Blue)));
+				addCommand.RaiseCanExecute();
 			}
 		}
 
@@ -131,8 +114,8 @@ namespace ColorViewer
 			{
 				green = value;
 				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(OnAdd)));
 				OnPropertyChange(new PropertyChangedEventArgs(nameof(Green)));
+				addCommand.RaiseCanExecute();
 			}
 		}
 
@@ -183,8 +166,8 @@ namespace ColorViewer
 			{
 				red = value;
 				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(OnAdd)));
 				OnPropertyChange(new PropertyChangedEventArgs(nameof(Red)));
+				addCommand.RaiseCanExecute();
 			}
 		}
 

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WpfApp1
+namespace ColorViewer
 {
 	internal sealed class Command : ICommand
 	{
 		public event EventHandler CanExecuteChanged;
-
 		private Func<bool> canExecuteMethod;
 		private Action add;
-		private ICommand deleteCommand;
 		private Func<bool> canAdd;
+		private ICommand delete;
 
 		public Command(Action add) :
 			this(add, () => true)
@@ -23,10 +22,19 @@ namespace WpfApp1
 			this.canExecuteMethod = canExecuteMethod;
 		}
 
+		public void RaiseCanExecute()
+		{
+			CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+		}
+
 		public Command(ICommand deleteCommand, Func<bool> canAdd)
 		{
-			this.deleteCommand = deleteCommand;
 			this.canAdd = canAdd;
+		}
+
+		public Command(ICommand delete)
+		{
+			this.delete = delete;
 		}
 
 		public bool CanExecute()
