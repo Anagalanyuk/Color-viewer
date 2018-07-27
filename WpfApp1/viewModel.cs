@@ -33,23 +33,6 @@ namespace ColorViewer
 
 		public IEnumerable<UserColor> Colors => colors;
 
-		public bool OnButtonAdd
-		{
-			get
-			{
-				isAdd = true;
-				foreach (UserColor indexColors in colors)
-				{
-					if (color.Equals(indexColors.Color))
-					{
-						isAdd = false;
-						break;
-					}
-				}
-				return isAdd;
-			}
-		}
-
 		public void Add()
 		{
 			colors.Add(new UserColor(color, colors, addCommand));
@@ -58,20 +41,13 @@ namespace ColorViewer
 
 		public bool canAdd()
 		{
-			if (colors.Count == 0)
-			{
-				isAdd = true;
-			}
+			isAdd = true;
 			foreach (UserColor userColor in colors)
 			{
 				if (color == userColor.Color)
 				{
 					isAdd = false;
 					break;
-				}
-				else
-				{
-					isAdd = true;
 				}
 			}
 			return isAdd;
