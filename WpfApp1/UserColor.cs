@@ -11,6 +11,7 @@ namespace ColorViewer
 		private ICollection<UserColor> colors;
 
 		public ICommand DeleteCommand => deleteComand;
+
 		public string Color => userColor;
 
 		public UserColor(string color, ICollection<UserColor> colors, Command addCommand)
@@ -26,6 +27,5 @@ namespace ColorViewer
 			colors.Remove(this);
 			addCommand.RaiseCanExecute();
 		}
-
 	}
 }
