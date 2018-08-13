@@ -60,7 +60,7 @@ namespace ColorViewer
 		public string Color
 		{
 			get => color;
-			set { color = ChangeColor(); }
+			private set { color = ChangeColor(); }
 		}
 
 		public double Green
