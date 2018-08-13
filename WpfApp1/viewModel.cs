@@ -26,10 +26,11 @@ namespace ColorViewer
 
 		public ViewModel()
 		{
-			addCommand = new Command(Add, canAdd);
+			addCommand = new Command(Add, CanAdd);
 		}
 
 		public ICommand AddCommand => addCommand;
+
 		public IEnumerable<UserColor> Colors => colors;
 
 		public double Alpha
@@ -135,7 +136,7 @@ namespace ColorViewer
 			addCommand.RaiseCanExecute();
 		}
 
-		public bool canAdd()
+		public bool CanAdd()
 		{
 			isAdd = true;
 			foreach (UserColor userColor in colors)
