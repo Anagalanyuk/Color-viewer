@@ -11,12 +11,12 @@ namespace ColorViewer
 		private readonly Command addCommand;
 		private readonly ICollection<UserColor> colors = new ObservableCollection<UserColor>();
 
-		private double alfa = 255;
+		private double alpha = 255;
 		private double blue;
 		private string color = "#FE000000";
 		private double green;
 		private bool isAdd = true;
-		private bool onAlfa = true;
+		private bool onAlpha = true;
 		private bool onBlue = true;
 		private bool onGreen = true;
 		private bool onRed = true;
@@ -32,14 +32,14 @@ namespace ColorViewer
 		public ICommand AddCommand => addCommand;
 		public IEnumerable<UserColor> Colors => colors;
 
-		public double Alfa
+		public double Alpha
 		{
-			get => alfa;
+			get => alpha;
 			set
 			{
-				alfa = value;
+				alpha = value;
 				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(Alfa)));
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(Alpha)));
 				addCommand.RaiseCanExecute();
 			}
 		}
@@ -77,13 +77,13 @@ namespace ColorViewer
 			}
 		}
 
-		public bool StateAlfa
+		public bool StateAlpha
 		{
-			get => onAlfa;
+			get => onAlpha;
 			set
 			{
-				onAlfa = value;
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateAlfa)));
+				onAlpha = value;
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateAlpha)));
 			}
 		}
 
@@ -152,14 +152,14 @@ namespace ColorViewer
 		public string ChangeColor()
 		{
 			color = "#";
-			if (alfa < 16)
+			if (alpha < 16)
 			{
 				color += "0";
-				color += Convert.ToString((int)alfa, 16);
+				color += Convert.ToString((int)alpha, 16);
 			}
 			else
 			{
-				color += Convert.ToString((int)alfa, 16);
+				color += Convert.ToString((int)alpha, 16);
 
 			}
 			if (red < 16)
