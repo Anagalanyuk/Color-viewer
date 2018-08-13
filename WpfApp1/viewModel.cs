@@ -188,7 +188,8 @@ namespace ColorViewer
 				color += Convert.ToString((int)blue, 16);
 			}
 			PropertyChanged(this, new PropertyChangedEventArgs(nameof(Color)));
-			return color = color.ToUpper();
+			color = color.ToUpper();
+			return color;
 		}
 
 		public void OnPropertyChange(PropertyChangedEventArgs e)
