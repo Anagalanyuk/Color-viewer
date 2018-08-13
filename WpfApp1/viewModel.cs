@@ -8,8 +8,8 @@ namespace ColorViewer
 {
 	internal class ViewModel : INotifyPropertyChanged
 	{
-		private readonly ICollection<UserColor> colors = new ObservableCollection<UserColor>();
 		private readonly Command addCommand;
+		private readonly ICollection<UserColor> colors = new ObservableCollection<UserColor>();
 
 		private double alfa = 255;
 		private double blue;
@@ -30,28 +30,7 @@ namespace ColorViewer
 		}
 
 		public ICommand AddCommand => addCommand;
-
 		public IEnumerable<UserColor> Colors => colors;
-
-		public void Add()
-		{
-			colors.Add(new UserColor(color, colors, addCommand));
-			addCommand.RaiseCanExecute();
-		}
-
-		public bool canAdd()
-		{
-			isAdd = true;
-			foreach (UserColor userColor in colors)
-			{
-				if (color == userColor.Color)
-				{
-					isAdd = false;
-					break;
-				}
-			}
-			return isAdd;
-		}
 
 		public double Alfa
 		{
@@ -148,6 +127,26 @@ namespace ColorViewer
 				OnPropertyChange(new PropertyChangedEventArgs(nameof(Red)));
 				addCommand.RaiseCanExecute();
 			}
+		}
+
+		public void Add()
+		{
+			colors.Add(new UserColor(color, colors, addCommand));
+			addCommand.RaiseCanExecute();
+		}
+
+		public bool canAdd()
+		{
+			isAdd = true;
+			foreach (UserColor userColor in colors)
+			{
+				if (color == userColor.Color)
+				{
+					isAdd = false;
+					break;
+				}
+			}
+			return isAdd;
 		}
 
 		public string ChangeColor()

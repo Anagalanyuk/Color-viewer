@@ -5,11 +5,12 @@ namespace ColorViewer
 {
 	internal sealed class Command : ICommand
 	{
-		public event EventHandler CanExecuteChanged;
-		private Func<bool> canExecuteMethod;
 		private Action add;
-		private Func<bool> canAdd;
-		private ICommand delete;
+		//private Func<bool> canAdd;
+		private Func<bool> canExecuteMethod;
+		//private ICommand delete;
+
+		public event EventHandler CanExecuteChanged;
 
 		public Command(Action add) :
 			this(add, () => true)
@@ -22,19 +23,9 @@ namespace ColorViewer
 			this.canExecuteMethod = canExecuteMethod;
 		}
 
-		public void RaiseCanExecute()
+		bool ICommand.CanExecute(object parametr)
 		{
-			CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-		}
-
-		public Command(ICommand deleteCommand, Func<bool> canAdd)
-		{
-			this.canAdd = canAdd;
-		}
-
-		public Command(ICommand delete)
-		{
-			this.delete = delete;
+			return CanExecute();
 		}
 
 		public bool CanExecute()
@@ -42,14 +33,24 @@ namespace ColorViewer
 			return canExecuteMethod();
 		}
 
-		bool ICommand.CanExecute(object parametr)
-		{
-			return CanExecute();
-		}
-
 		public void Execute(object parameter)
 		{
 			add();
 		}
+
+		public void RaiseCanExecute()
+		{
+			CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		//public Command(ICommand deleteCommand, Func<bool> canAdd)
+		//{
+		//	this.canAdd = canAdd;
+		//}
+
+		//public Command(ICommand delete)
+		//{
+		//	this.delete = delete;
+		//}
 	}
 }
