@@ -6,9 +6,7 @@ namespace ColorViewer
 	internal sealed class Command : ICommand
 	{
 		private Action add;
-		//private Func<bool> canAdd;
 		private Func<bool> canExecuteMethod;
-		//private ICommand delete;
 
 		public event EventHandler CanExecuteChanged;
 
@@ -42,15 +40,5 @@ namespace ColorViewer
 		{
 			CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 		}
-
-		//public Command(ICommand deleteCommand, Func<bool> canAdd)
-		//{
-		//	this.canAdd = canAdd;
-		//}
-
-		//public Command(ICommand delete)
-		//{
-		//	this.delete = delete;
-		//}
 	}
 }
