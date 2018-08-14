@@ -59,10 +59,13 @@ namespace ColorViewer
 			get => blue;
 			set
 			{
-				blue = value;
-				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(Blue)));
-				addCommand.RaiseCanExecute();
+				if (blue != value)
+				{
+					blue = value;
+					ChangeColor();
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(Blue)));
+					addCommand.RaiseCanExecute();
+				}
 			}
 		}
 
@@ -78,10 +81,13 @@ namespace ColorViewer
 			get => green;
 			set
 			{
-				green = value;
-				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(Green)));
-				addCommand.RaiseCanExecute();
+				if (green != value)
+				{
+					green = value;
+					ChangeColor();
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(Green)));
+					addCommand.RaiseCanExecute();
+				}
 			}
 		}
 
@@ -90,8 +96,11 @@ namespace ColorViewer
 			get => onAlpha;
 			set
 			{
-				onAlpha = value;
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateAlpha)));
+				if (onAlpha != value)
+				{
+					onAlpha = value;
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(StateAlpha)));
+				}
 			}
 		}
 
@@ -100,8 +109,11 @@ namespace ColorViewer
 			get => onBlue;
 			set
 			{
-				onBlue = value;
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateBlue)));
+				if (onBlue != value)
+				{
+					onBlue = value;
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(StateBlue)));
+				}
 			}
 		}
 
@@ -110,8 +122,11 @@ namespace ColorViewer
 			get => onGreen;
 			set
 			{
-				onGreen = value;
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateGreen)));
+				if (onGreen != value)
+				{
+					onGreen = value;
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(StateGreen)));
+				}
 			}
 		}
 
@@ -120,8 +135,11 @@ namespace ColorViewer
 			get => onRed;
 			set
 			{
-				onRed = value;
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(StateRed)));
+				if (onRed != value)
+				{
+					onRed = value;
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(StateRed)));
+				}
 			}
 		}
 
@@ -130,10 +148,13 @@ namespace ColorViewer
 			get => red;
 			set
 			{
-				red = value;
-				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(Red)));
-				addCommand.RaiseCanExecute();
+				if (red != value)
+				{
+					red = value;
+					ChangeColor();
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(Red)));
+					addCommand.RaiseCanExecute();
+				}
 			}
 		}
 
