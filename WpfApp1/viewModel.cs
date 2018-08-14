@@ -10,10 +10,14 @@ namespace ColorViewer
 	{
 		private readonly Command addCommand;
 		private readonly ICollection<UserColor> colors = new ObservableCollection<UserColor>();
+		private readonly int notation = 16;
+		private readonly int singleDigit = 16;
+		private readonly double transparency = 255;
+		string colorImageCod = "#FE000000";
 
-		private double alpha = 255;
+		private double alpha;
 		private double blue;
-		private string color = "#FE000000";
+		private string colorImage;
 		private double green;
 		private bool isAdd = true;
 		private bool onAlpha = true;
@@ -27,6 +31,8 @@ namespace ColorViewer
 		public ViewModel()
 		{
 			addCommand = new Command(Add, CanAdd);
+			alpha = transparency;
+			colorImage = colorImageCod;
 		}
 
 		public ICommand AddCommand => addCommand;
@@ -38,10 +44,13 @@ namespace ColorViewer
 			get => alpha;
 			set
 			{
-				alpha = value;
-				ChangeColor();
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(Alpha)));
-				addCommand.RaiseCanExecute();
+				if (alpha != value)
+				{
+					alpha = value;
+					ChangeColor();
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(Alpha)));
+					addCommand.RaiseCanExecute();
+				}
 			}
 		}
 
@@ -59,8 +68,9 @@ namespace ColorViewer
 
 		public string Color
 		{
-			get => color;
-			private set { color = ChangeColor(); }
+			get => colorImage;
+			private set { colorImage = ChangeColor(); }
+
 		}
 
 		public double Green
@@ -129,7 +139,7 @@ namespace ColorViewer
 
 		public void Add()
 		{
-			colors.Add(new UserColor(color, colors, addCommand));
+			colors.Add(new UserColor(colorImage, colors, addCommand));
 			addCommand.RaiseCanExecute();
 		}
 
@@ -138,7 +148,7 @@ namespace ColorViewer
 			isAdd = true;
 			foreach (UserColor userColor in colors)
 			{
-				if (color == userColor.Color)
+				if (colorImage == userColor.Color)
 				{
 					isAdd = false;
 					break;
@@ -149,47 +159,47 @@ namespace ColorViewer
 
 		public string ChangeColor()
 		{
-			color = "#";
-			if (alpha < 16)
+			colorImage = "#";
+			if (alpha < singleDigit)
 			{
-				color += "0";
-				color += Convert.ToString((int)alpha, 16);
+				colorImage += "0";
+				colorImage += Convert.ToString((int)alpha, notation);
 			}
 			else
 			{
-				color += Convert.ToString((int)alpha, 16);
+				colorImage += Convert.ToString((int)alpha, notation);
 
 			}
-			if (red < 16)
+			if (red < singleDigit)
 			{
-				color += "0";
-				color += Convert.ToString((int)red, 16);
+				colorImage += "0";
+				colorImage += Convert.ToString((int)red, notation);
 			}
 			else
 			{
-				color += Convert.ToString((int)red, 16);
+				colorImage += Convert.ToString((int)red, notation);
 			}
-			if (green < 16)
+			if (green < singleDigit)
 			{
-				color += "0";
-				color += Convert.ToString((int)green, 16);
-			}
-			else
-			{
-				color += Convert.ToString((int)green, 16);
-			}
-			if (blue < 16)
-			{
-				color += "0";
-				color += Convert.ToString((int)blue, 16);
+				colorImage += "0";
+				colorImage += Convert.ToString((int)green, notation);
 			}
 			else
 			{
-				color += Convert.ToString((int)blue, 16);
+				colorImage += Convert.ToString((int)green, notation);
+			}
+			if (blue < singleDigit)
+			{
+				colorImage += "0";
+				colorImage += Convert.ToString((int)blue, notation);
+			}
+			else
+			{
+				colorImage += Convert.ToString((int)blue, notation);
 			}
 			PropertyChanged(this, new PropertyChangedEventArgs(nameof(Color)));
-			color = color.ToUpper();
-			return color;
+			colorImage = colorImage.ToUpper();
+			return colorImage;
 		}
 
 		public void OnPropertyChange(PropertyChangedEventArgs e)

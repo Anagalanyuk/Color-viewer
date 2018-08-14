@@ -8,10 +8,10 @@ namespace ColorViewer
 	{
 		private readonly string userColor = string.Empty;
 		private readonly ICommand deleteComand;
-		private Command addCommand;
+		private ICommand addCommand;
 		private ICollection<UserColor> colors;
 
-		public UserColor(string color, ICollection<UserColor> colors, Command addCommand)
+		public UserColor(string color, ICollection<UserColor> colors, ICommand addCommand)
 		{
 			this.addCommand = addCommand;
 			userColor = color;
@@ -26,7 +26,7 @@ namespace ColorViewer
 		public void Delete()
 		{
 			colors.Remove(this);
-			addCommand.RaiseCanExecute();
+			//addCommand.RaiseCanExecute();
 		}
 	}
 }
