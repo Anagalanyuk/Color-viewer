@@ -78,8 +78,11 @@ namespace ColorViewer
 			get => colorImage;
 			private set
 			{
-				colorImage = value;
-				OnPropertyChange(new PropertyChangedEventArgs(nameof(ColorImage)));
+				if (ColorImage != value)
+				{
+					colorImage = value;
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(ColorImage)));
+				}
 			}
 		}
 
@@ -186,45 +189,47 @@ namespace ColorViewer
 
 		public void ChangeColor()
 		{
-			colorImage = "#";
+			string colorCod = string.Empty;
+			colorCod = "#";
 			if (alpha < singleDigit)
 			{
-				colorImage += "0";
-				colorImage += Convert.ToString((int)alpha, notation);
+				colorCod += "0";
+				colorCod += Convert.ToString((int)alpha, notation);
 			}
 			else
 			{
-				colorImage += Convert.ToString((int)alpha, notation);
+				colorCod += Convert.ToString((int)alpha, notation);
 
 			}
 			if (red < singleDigit)
 			{
-				colorImage += "0";
-				colorImage += Convert.ToString((int)red, notation);
+				colorCod += "0";
+				colorCod += Convert.ToString((int)red, notation);
 			}
 			else
 			{
-				colorImage += Convert.ToString((int)red, notation);
+				colorCod += Convert.ToString((int)red, notation);
 			}
 			if (green < singleDigit)
 			{
-				colorImage += "0";
-				colorImage += Convert.ToString((int)green, notation);
+				colorCod += "0";
+				colorCod += Convert.ToString((int)green, notation);
 			}
 			else
 			{
-				colorImage += Convert.ToString((int)green, notation);
+				colorCod += Convert.ToString((int)green, notation);
 			}
 			if (blue < singleDigit)
 			{
-				colorImage += "0";
-				colorImage += Convert.ToString((int)blue, notation);
+				colorCod += "0";
+				colorCod += Convert.ToString((int)blue, notation);
 			}
 			else
 			{
-				colorImage += Convert.ToString((int)blue, notation);
+				colorCod += Convert.ToString((int)blue, notation);
 			}
-			ColorImage = colorImage.ToUpper();
+			colorCod = colorCod.ToUpper();
+			ColorImage = colorCod;
 		}
 
 		private void IsAdd(object sender, NotifyCollectionChangedEventArgs e)
