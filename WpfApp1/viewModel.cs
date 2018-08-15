@@ -9,7 +9,6 @@ namespace ColorViewer
 {
 	internal class ViewModel : INotifyPropertyChanged
 	{
-
 		private const int notation = 16;
 		private const int singleDigit = 16;
 		private const double transparency = 255;
