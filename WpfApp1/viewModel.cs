@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -9,7 +10,7 @@ namespace ColorViewer
 	internal class ViewModel : INotifyPropertyChanged
 	{
 		private readonly Command addCommand;
-		private readonly ICollection<UserColor> colors = new ObservableCollection<UserColor>();
+		private readonly ObservableCollection<UserColor> colors = new ObservableCollection<UserColor>();
 		private readonly int notation = 16;
 		private readonly int singleDigit = 16;
 		private readonly double transparency = 255;
@@ -33,13 +34,7 @@ namespace ColorViewer
 			addCommand = new Command(Add, CanAdd);
 			alpha = transparency;
 			colorImage = colorCod;
-
-			Raise();
-		}
-
-		private void Raise()
-		{
-			
+			colors.CollectionChanged += IsAdd;
 		}
 
 		public ICommand AddCommand => addCommand;
@@ -171,7 +166,6 @@ namespace ColorViewer
 		public void Add()
 		{
 			colors.Add(new UserColor(colorImage, colors, addCommand));
-			//addCommand.RaiseCanExecute();
 		}
 
 		public bool CanAdd()
@@ -229,6 +223,11 @@ namespace ColorViewer
 				colorImage += Convert.ToString((int)blue, notation);
 			}
 			ColorImage = colorImage.ToUpper();
+		}
+
+		private void IsAdd(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			addCommand.RaiseCanExecute();
 		}
 
 		public void OnPropertyChange(PropertyChangedEventArgs e)
