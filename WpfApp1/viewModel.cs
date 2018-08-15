@@ -14,7 +14,7 @@ namespace ColorViewer
 		private readonly int notation = 16;
 		private readonly int singleDigit = 16;
 		private readonly double transparency = 255;
-		private readonly string colorCod = "#FE000000";
+		private readonly string colorCod = "#FF000000";
 
 		private double alpha;
 		private double blue;
