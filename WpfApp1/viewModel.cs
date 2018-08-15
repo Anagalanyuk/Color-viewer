@@ -9,12 +9,14 @@ namespace ColorViewer
 {
 	internal class ViewModel : INotifyPropertyChanged
 	{
+
+		private const int notation = 16;
+		private const int singleDigit = 16;
+		private const double transparency = 255;
+		private const string colorCod = "#FF000000";
+
 		private readonly Command addCommand;
 		private readonly ObservableCollection<UserColor> colors = new ObservableCollection<UserColor>();
-		private readonly int notation = 16;
-		private readonly int singleDigit = 16;
-		private readonly double transparency = 255;
-		private readonly string colorCod = "#FF000000";
 
 		private double alpha;
 		private double blue;
