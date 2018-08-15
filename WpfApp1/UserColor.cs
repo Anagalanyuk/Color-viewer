@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace ColorViewer
@@ -26,7 +25,6 @@ namespace ColorViewer
 		public void Delete()
 		{
 			colors.Remove(this);
-			//addCommand.RaiseCanExecute();
 		}
 	}
 }

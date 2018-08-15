@@ -68,7 +68,7 @@
                     Minimum="0" Maximum="255" Value="{Binding Path=Blue, UpdateSourceTrigger=PropertyChanged}"
                     IsEnabled="{Binding Path=StateBlue}" IsSnapToTickEnabled="True"/>
             <Border x:Name="color" Grid.Row="0" Grid.Column="4" Grid.RowSpan="4"
-                    Margin="8,5,5,0" Background="{Binding Path=Color}" Height="110" VerticalAlignment="Top"/>
+                    Margin="8,5,5,0" Background="{Binding Path=ColorImage}" Height="110" VerticalAlignment="Top"/>
         </Grid>
         <ListBox x:Name="list" Grid.Row="2" Margin="5" HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding Path=Colors}">

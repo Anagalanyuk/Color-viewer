@@ -13,7 +13,7 @@ namespace ColorViewer
 		private readonly int notation = 16;
 		private readonly int singleDigit = 16;
 		private readonly double transparency = 255;
-		string colorImageCod = "#FE000000";
+		string colorCod = "#FE000000";
 
 		private double alpha;
 		private double blue;
@@ -32,7 +32,14 @@ namespace ColorViewer
 		{
 			addCommand = new Command(Add, CanAdd);
 			alpha = transparency;
-			colorImage = colorImageCod;
+			colorImage = colorCod;
+
+			Raise();
+		}
+
+		private void Raise()
+		{
+			
 		}
 
 		public ICommand AddCommand => addCommand;
@@ -69,14 +76,17 @@ namespace ColorViewer
 			}
 		}
 
-		public string Color
+		public string ColorImage
 		{
 			get => colorImage;
-			private set { colorImage = ChangeColor(); }
-
+			private set
+			{
+				colorImage = value;
+				OnPropertyChange(new PropertyChangedEventArgs(nameof(ColorImage)));
+			}
 		}
 
-		public double Green
+	public double Green
 		{
 			get => green;
 			set
@@ -161,7 +171,7 @@ namespace ColorViewer
 		public void Add()
 		{
 			colors.Add(new UserColor(colorImage, colors, addCommand));
-			addCommand.RaiseCanExecute();
+			//addCommand.RaiseCanExecute();
 		}
 
 		public bool CanAdd()
@@ -178,7 +188,7 @@ namespace ColorViewer
 			return isAdd;
 		}
 
-		public string ChangeColor()
+		public void ChangeColor()
 		{
 			colorImage = "#";
 			if (alpha < singleDigit)
@@ -218,9 +228,7 @@ namespace ColorViewer
 			{
 				colorImage += Convert.ToString((int)blue, notation);
 			}
-			PropertyChanged(this, new PropertyChangedEventArgs(nameof(Color)));
-			colorImage = colorImage.ToUpper();
-			return colorImage;
+			ColorImage = colorImage.ToUpper();
 		}
 
 		public void OnPropertyChange(PropertyChangedEventArgs e)
