@@ -7,7 +7,7 @@ namespace ColorViewer
 	/// </summary>
 	internal partial class MainWindow : Window
 	{
-		public MainWindow(ViewModel mainView)
+		internal MainWindow(ViewModel mainView)
 		{
 			InitializeComponent();
 
