@@ -7,11 +7,11 @@ namespace ColorViewer
 	/// </summary>
 	internal partial class MainWindow : Window
 	{
-		internal MainWindow(ViewModel mainView)
+		internal MainWindow(ViewModel viewModel)
 		{
 			InitializeComponent();
 
-			DataContext = mainView;
+			DataContext = viewModel;
 		}
 	}
 }
