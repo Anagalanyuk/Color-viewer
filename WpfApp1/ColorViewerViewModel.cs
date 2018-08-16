@@ -9,10 +9,10 @@ namespace ColorViewer
 {
 	internal class ViewModel : INotifyPropertyChanged
 	{
+		private const string colorCode = "#FF000000";
 		private const int notation = 16;
 		private const int singleDigit = 16;
 		private const double transparency = 255;
-		private const string colorCode = "#FF000000";
 
 		private readonly Command addCommand;
 		private readonly ObservableCollection<UserColor> colors = new ObservableCollection<UserColor>();
@@ -28,8 +28,6 @@ namespace ColorViewer
 		private bool onRed = true;
 		private double red;
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
 		public ViewModel()
 		{
 			addCommand = new Command(Add, CanAdd);
@@ -39,8 +37,6 @@ namespace ColorViewer
 		}
 
 		public ICommand AddCommand => addCommand;
-
-		public IEnumerable<UserColor> Colors => colors;
 
 		public double Alpha
 		{
@@ -85,6 +81,8 @@ namespace ColorViewer
 			}
 		}
 
+		public IEnumerable<UserColor> Colors => colors;
+
 		public double Green
 		{
 			get => green;
@@ -95,6 +93,21 @@ namespace ColorViewer
 					green = value;
 					ChangeColor();
 					OnPropertyChange(new PropertyChangedEventArgs(nameof(Green)));
+					addCommand.RaiseCanExecute();
+				}
+			}
+		}
+
+		public double Red
+		{
+			get => red;
+			set
+			{
+				if (red != value)
+				{
+					red = value;
+					ChangeColor();
+					OnPropertyChange(new PropertyChangedEventArgs(nameof(Red)));
 					addCommand.RaiseCanExecute();
 				}
 			}
@@ -152,20 +165,7 @@ namespace ColorViewer
 			}
 		}
 
-		public double Red
-		{
-			get => red;
-			set
-			{
-				if (red != value)
-				{
-					red = value;
-					ChangeColor();
-					OnPropertyChange(new PropertyChangedEventArgs(nameof(Red)));
-					addCommand.RaiseCanExecute();
-				}
-			}
-		}
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public void Add()
 		{

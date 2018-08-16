@@ -5,8 +5,9 @@ namespace ColorViewer
 {
 	internal sealed class UserColor
 	{
-		private readonly string userColor = string.Empty;
 		private readonly ICommand deleteComand;
+		private readonly string userColor = string.Empty;
+
 		private ICommand addCommand;
 		private ICollection<UserColor> colors;
 

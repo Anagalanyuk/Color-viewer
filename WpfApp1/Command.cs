@@ -8,12 +8,12 @@ namespace ColorViewer
 		private Action add;
 		private Func<bool> canExecuteMethod;
 
-		public event EventHandler CanExecuteChanged;
-
 		public Command(Action add) :
 			this(add, () => true)
 		{
 		}
+
+		public event EventHandler CanExecuteChanged;
 
 		public Command(Action add, Func<bool> canExecuteMethod)
 		{
